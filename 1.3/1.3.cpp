@@ -7,51 +7,51 @@
 
 using namespace std;
 
-int& get_max_repnum(int arr[],const short arr_size)
+int& get_max_rep_num(int arr[],const short arr_size)
 {
 	int imax = 0;
-	int repnum = 0;
-	int repmaxnum = 0;
-	bool if_repnum = 0;
-	bool if_arr_repnum = 1;
+	int rep_max_num = 0;
+	bool is_rep_found = 0;
+	bool if_arr_contains_rep_target = 1;
 
 	for (int i = 0; i < arr_size; i++)
 	{
-		if_repnum = 0;
+		is_rep_found = 0;
 		for (int j = 0; j < arr_size; j++)
 		{
 			if (i == j) continue;
 			if (arr[i] == arr[j])
 			{
-				if_repnum = 1;
+				is_rep_found = 1;
 				break;
 			}
 		}
-		if (arr[i] > repmaxnum && if_repnum)
+		if (arr[i] > rep_max_num && is_rep_found)
 		{
 			imax = i;
-			repmaxnum = arr[i];
+			rep_max_num = arr[i];
 		}
-		if (if_repnum) if_arr_repnum = 0;
+		if (is_rep_found) if_arr_contains_rep_target = 0;
 	}
-		if (if_arr_repnum)
+		if (if_arr_contains_rep_target)
 		{
 			for (int i = 0; i < arr_size; i++)
 			{
 				if (arr[imax] > arr[i]) imax = imax;
 				else imax = i;
 			}
-			arr[imax] = 0;
+			cout << "there are no reapeating numbers" << endl;
 		}
+		if (!if_arr_contains_rep_target)
+			cout << "there are reapeating numbers in array" << endl;
 	return arr[imax];
 }
 
 	void main()
 {
 	const short arr_size = 10;
-	int arr[arr_size]{13,3,2,7,1,123,321,11,34,9};
-	int x = get_max_repnum(arr, arr_size);
-	cout << x << endl;
+	int arr[arr_size]{ 13,3,2,7,112,11,321,113,34,11 };
+	get_max_repnum(arr, arr_size) = 0;
 	for (int i = 0; i < arr_size; i++)
 	{
 		cout << "|" << arr[i] << "|";
