@@ -7,38 +7,38 @@
 
 using namespace std;
 
-int& maxnum(int arr[],const short N)
+int& get_max_repnum(int arr[],const short arr_size)
 {
 	int imax = 0;
-	int Repnum = 0;
-	int Repmaxnum = 0;
-	bool Boba = 0;
-	bool Biba = 1;
+	int repnum = 0;
+	int repmaxnum = 0;
+	bool if_repnum = 0;
+	bool if_arr_repnum = 1;
 
-	for (int i = 0; i < N; i++)
+	for (int i = 0; i < arr_size; i++)
 	{
-		Boba = 0;
-		for (int j = 0; j < N; j++)
+		if_repnum = 0;
+		for (int j = 0; j < arr_size; j++)
 		{
 			if (i == j) continue;
 			if (arr[i] == arr[j])
 			{
-				Boba = 1;
+				if_repnum = 1;
 				break;
 			}
 		}
-		if (arr[i] > Repmaxnum && Boba)
+		if (arr[i] > repmaxnum && if_repnum)
 		{
 			imax = i;
-			Repmaxnum = arr[i];
+			repmaxnum = arr[i];
 		}
-		if (Boba) Biba = 0;
+		if (if_repnum) if_arr_repnum = 0;
 	}
-		if (Biba)
+		if (if_arr_repnum)
 		{
-			for (int i = 0; i < N; i++)
+			for (int i = 0; i < arr_size; i++)
 			{
-				if (imax = arr[imax] > arr[i]) imax = imax;
+				if (arr[imax] > arr[i]) imax = imax;
 				else imax = i;
 			}
 			arr[imax] = 0;
@@ -48,11 +48,11 @@ int& maxnum(int arr[],const short N)
 
 	void main()
 {
-	const short N = 10;
-	int arr[N]{1,3,2,7,1,123,7,11,9,9};
-	int x = maxnum(arr, N);
+	const short arr_size = 10;
+	int arr[arr_size]{13,3,2,7,1,123,321,11,34,9};
+	int x = get_max_repnum(arr, arr_size);
 	cout << x << endl;
-	for (int i = 0; i < N; i++)
+	for (int i = 0; i < arr_size; i++)
 	{
 		cout << "|" << arr[i] << "|";
 	}

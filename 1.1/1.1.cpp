@@ -1,76 +1,88 @@
+//Выполнить задание, оформив его через функции(ввода, вывода, заполнение).Передачу массива в функции организовать через указатели.
+//Получить квадратную матрицу порядка n, элементами которой являются заданные числа а1, …, аnn, расположенные в ней по спирали(см.схему на рисунке).
+//Перебор строк / столбцов матрицы осуществить с использованием указателей.
+
 #include <iostream>
 #include <iomanip>
-#include <time.h>  
+/*#include <time.h> */ 
 
 using namespace std;
 
-const int N = 5;
-
-void input(int *arr)
+void fill_arr_consequence(int* arr, int arr_size)
 {
-	srand(time(NULL));
-	cout << "enter sequence of 25 natural numbers:" << endl;
-	for (int i = 0; i < 25; i++)
+	/*srand(time(NULL));*/
+	cout << "enter sequence of "<<arr_size * arr_size<<" natural numbers : " << endl;
+	for (int i = 0; i < arr_size * arr_size; i++)
 	{
-		*(arr + i) = i;
+		*(arr + i) = i + 1;
+		cout << arr[i] << endl;
 	}
 }
 
-void output(int(*array)[N])
+void display_spiral(int** array,int arr_size)
 {
-	for (int i = 0; i < N; i++)
+	for (int i = 0; i < arr_size; i++)
 	{
 		cout << " " << endl;
-		for (int j = 0; j < N; j++)
-			cout << right << setfill(' ') << "|" << array[i][j] << left << setw(3) << "|";
+		for (int j = 0; j < arr_size; j++)
+			cout << "|" <<setw(3) << array[i][j] << setw(3) << "|";
 	}
 }
 
-void fill(int (*matrix)[N], int *arr)
+void spiral_array(int **matrix, int *arr, int arr_size)
 {
-	int i = 0;
-	int j = 0;
-	int up = 0,
+	int i = 0,
+		j = 0,
+		up = 0,
 		down = 0,
 		right = 0,
-		left = 0;
-	int k = 0;
-	while (k <= N * N)
+		left = 0,
+		iter = 0;
+	while (iter < arr_size * arr_size)
 	{
-		*(*matrix + j + i * N) = *(arr + 25 - k);
-		if (i == up && j < N - right - 1)
-			++j; // производится движение по столбцу вправо
-
-		// Проверка возможности движения вниз
-		else if (j == N - right - 1 && i < N - down - 1)
-			++i; // производится движение по строкам вниз
-
-		// Проверка возможности движения влево
-		else if (i == N - down - 1 && j > left)
-			--j; // производится движение по столбцу влево
-
-		// Проверка возможности движения вверх
+		*(*(matrix + i) + j) = *(arr + arr_size * arr_size - 1 - iter); // проверка движения вправо
+		cout << matrix[i][j] << endl;
+		if (i == up && j < arr_size - right - 1)
+			++j; 
+		else if (j == arr_size - right - 1 && i < arr_size - down - 1) // проверка движенгия вниз
+			++i;
+		else if (i == arr_size - down - 1 && j > left) // проверка движения влево
+			--j; 
 		else
-			--i; // производится движение по строкам вверх
+			--i; // движение по строкам вверх
 
-		// Сужение диапазона, если окружность заполнена
-		if ((i == up + 1) && (j == left) && (left != N - right - 1))
+		// Сужение спирали 
+		if ((i == up + 1) && (j == left) )
 		{
 			++up;
 			++down;
 			++right;
 			++left;
 		}
-		++k;
+		++iter;
 	}
 }
 
-int main()
+void main()
 {
-	int matrix[N][N];
-	int arr[25]{};
-	input(arr);
-	fill(matrix,arr);
-	output(matrix);
-	return 0;
+	int arr_size = 0;
+	cout << "Enter array size :" << endl;
+	cin >> arr_size;
+
+	int ** matrix = new int*[arr_size];
+	for (int i = 0; i < arr_size; i++)
+	{
+		matrix[i] = new int[arr_size];
+	}
+	int *arr = new int[arr_size];
+
+	fill_arr_consequence(arr,arr_size);
+	spiral_array(matrix,arr,arr_size);
+	display_spiral(matrix,arr_size);
+
+	for (int i = 0; i < arr_size; i++)
+	{
+		delete[] matrix[i];
+	}
+	delete[] matrix;
 }
