@@ -4,18 +4,17 @@
 
 using namespace std;
 
-double calc_integral(double a, double b,double s, double t,double r, double (*myfunc)(double, double, double), int & k_iter)
+double calc_integral_via_trapeze(double a, double b,double s, double t,double r, double (*myfunc)(double, double, double), int & k_iter)
 {
 	double integ_n = 0, integ_2n = 0, h = 0 , x = a, sum = 0;
 	int n = 1;
 	k_iter = 0;
 	do
 	{
-		/*cout << integ_2n << endl;
-		cout << integ_n << endl;*/
 		integ_n = integ_2n;
 		n++;
 		h = (b - a) / n;
+		x = a;
 		for (int i = 1; i <= n - 1; i++)
 		{
 			x += h;

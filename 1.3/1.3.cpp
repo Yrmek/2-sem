@@ -51,7 +51,7 @@ int& get_max_rep_num(int arr[],const short arr_size)
 {
 	const short arr_size = 10;
 	int arr[arr_size]{ 13,3,2,7,112,11,321,113,34,11 };
-	get_max_repnum(arr, arr_size) = 0;
+	get_max_rep_num(arr, arr_size) = 0;
 	for (int i = 0; i < arr_size; i++)
 	{
 		cout << "|" << arr[i] << "|";

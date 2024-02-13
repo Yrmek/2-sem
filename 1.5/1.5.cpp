@@ -21,7 +21,7 @@ void main()
 		t1 = 0.2;
 		for (t1; t1 <= t2; t1 += delta_t)
 		{
-			integral = calc_integral(a, b, s1, t1, r, myfunc, k_iter);
+			integral = calc_integral_via_trapeze(a, b, s1, t1, r, myfunc, k_iter);
 			print_integral(s1, t1, integral, k_iter);
 		}
 	}
