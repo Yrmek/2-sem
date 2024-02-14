@@ -1,4 +1,3 @@
-#include <iostream>
 #include "header.h"
 #include <math.h>
 
@@ -16,6 +15,7 @@ void main()
 		r = 1e-6,    //eps
 		integral = 0;
 	int k_iter = 0;
+	cout << setw(6) << "s" << "|" << setw(10) << "t" << "|" << setw(10) << "Int" << "|" << setw(6) << "k_iter" << endl;
 	for (s1; s1 <= s2; s1 += delta_s)
 	{
 		t1 = 0.2;
