@@ -100,6 +100,7 @@ int main()
 		quicksort(sequence, 0, arr_size);
 		print_arr(sequence, arr_size);
 		fin_arr_size = get_pair_numbers(sequence, arr_size, pair_sequence);
+		cout << "Converted array :" << endl;
 		print_arr(pair_sequence, fin_arr_size);
 		break;
 
@@ -108,6 +109,7 @@ int main()
 		quicksort(sequence, 0, arr_size);
 		print_arr(sequence, arr_size);
 		fin_arr_size = get_pair_numbers(sequence, arr_size, pair_sequence);
+		cout << "Converted array :" ;
 		print_arr(pair_sequence, fin_arr_size);
 		break;
 
