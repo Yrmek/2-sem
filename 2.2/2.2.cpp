@@ -60,7 +60,7 @@ int** multiply_matrix(int** matrix, int matrix_size)
 
 int** raise_matrix_to_power(int** matrix, int matrix_size, int power)
 {
-	int k_iter = power / 2;
+	int k_iter = log2(power) ;
 	int** temp_matrix = new int* [matrix_size];
 	for (int i = 0; i < matrix_size; i++)
 	{
@@ -68,15 +68,15 @@ int** raise_matrix_to_power(int** matrix, int matrix_size, int power)
 	}
 
 	temp_matrix = multiply_matrix(matrix, matrix_size);
-	if (k_iter != 1)
 	{
-		for (int i = 0; i < k_iter; i++)
+		for (int i = 1; i < k_iter; i++)
 		{
 			temp_matrix = multiply_matrix(temp_matrix, matrix_size);
 		}
 	}
 
-
+	cout <<power << endl;
+	print_matrix(temp_matrix, matrix_size);
 	return temp_matrix;
 	for (int i = 0; i < matrix_size; i++)
 	{
