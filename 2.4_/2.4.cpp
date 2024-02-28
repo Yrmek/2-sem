@@ -16,7 +16,6 @@ struct Node
 
 void print_list(Node*);
 void fill_list(Node*&, int);
-bool search_element(Node*, char);
 void find_equal_element(Node*, char, Node*&);
 void del_element(Node*&, char);
 void myfunction(Node*&, Node*);
@@ -60,7 +59,7 @@ void fill_list(Node*& top, int quantity)
 	for (int i = 0; i < quantity; i++) {
 		Node* ppv = NULL;
 		Node* nv = new Node;
-		nv->symbol = rand() % 100 + 50;
+		nv->symbol = rand() % 25 + 65;
 		nv->next = NULL;
 		if (!top)
 			top = nv;
@@ -76,17 +75,20 @@ void fill_list(Node*& top, int quantity)
 void del_element(Node*& top, char key)
 {
 	Node* pv, * ppv;
-	find_equal_element(top, key, ppv);
-	pv = ppv->next;
-	if (pv)
+	do
 	{
-		if (top->symbol == key)
-			top = top->next;
-		else
-			ppv->next = pv->next;
+		find_equal_element(top, key, ppv);
+		pv = ppv->next;
+		if (pv)
+		{
+			if (top->symbol == key)
+				top = top->next;
+			else
+				ppv->next = pv->next;
 
-		delete pv;
-	}
+			delete pv;
+		}
+	} while (ppv->next);
 }
 
 void print_list(Node* top)
@@ -98,18 +100,6 @@ void print_list(Node* top)
 	cout << endl;
 }
 
-bool search_element(Node* top, char key)
-{
-	bool k = 0;
-	while (top) {
-		if (key == top->symbol)
-		{
-			k = 1;
-		}
-		top = top->next;
-	}
-	return k;
-}
 
 void myfunction(Node*& top, Node* top1)
 {
@@ -117,10 +107,7 @@ void myfunction(Node*& top, Node* top1)
 	while (top1)
 	{
 		key = top1->symbol;
-		if (search_element(top, key))
-		{
-			del_element(top, key);
-		}
+		del_element(top, key);
 		top1 = top1->next;
 	}
 }
