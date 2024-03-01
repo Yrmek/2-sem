@@ -8,73 +8,56 @@
 //ќтредактировать заданное предложение, удал€€ из него слова, которые уже
 //встречались в предложении раньше.
 
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
-#include <iomanip>
 #include <string.h>
-#include <time.h> 
 
 using namespace std;
-void fill_c_string_manual(char str_arr[], const int arr_size)
-{
-	cout <<"Enter array of words : "<< endl;
-	int i = 0;
-	char symbol = 0;
-	while (true)
-	{
-		cin >> symbol;
-		i++;
-		if (symbol == 0 || i == arr_size - 1) break;
-	}
+
+void RemoveDuplicateWords(char* str_arr, const int arr_size) {
+    char* words[20]; // ћассив указателей на слова
+    char sep_symbols[] = " .,:;!?-()"; // –азделители слов
+    int words_quant = 0;
+
+    // –азбиваем строку на слова
+    char* word = strtok(str_arr, sep_symbols);
+    while (word != nullptr) {
+        // ѕровер€ем наличие слова в уникальном массиве
+        bool duplicate = false;
+        for (int i = 0; i < words_quant; i++) {
+            if (strcmp(words[i], word) == 0) {
+                duplicate = true;
+                break;
+            }
+        }
+        // ≈сли слово уникальное, добавл€ем его в массив
+        if (!duplicate) {
+            words[words_quant] = word;
+            words_quant++;
+        }
+        word = strtok(nullptr, sep_symbols);
+    }
+
+    char new_str[40];
+    new_str[0] = '\0';
+    for (int i = 0; i < words_quant; i++) {
+        strcat(new_str, words[i]);
+        strcat(new_str, " ");
+    }
+    strcpy(str_arr, new_str);
 }
 
-void fill_c_string_rand(char str_arr[], const int arr_size )
-{
-	srand(time(NULL));
-	for (int i = 0; i < arr_size; i++)
-	{
-		str_arr[i] = rand() % 100 + rand () % 100;
-	}
-}
-void print_string(char str_arr[], const int arr_size)
-{
-	for (int i = 0; i < arr_size; i++)
-	{
-		cout << str_arr[i];
-	}
-}
+int main() {
+    const int arr_size = 40;
+    char str_arr[arr_size];
 
-char edit_string(char str_arr[], const int arr_size)
-{
-	return 0;
-}
-void main()
-{
-	enum  enmArrInit
-	{
-		ByRand =1 , ByUser
-	};
-	short choice = 0;
+    cout << "Enter array of words : " << endl;
+    cin.getline(str_arr, arr_size);
 
-	cout << "Chose an option :" << endl
-		<< "a) To fill array by random write 1" << endl
-		<< "b) To fill array manually write 2" << endl
-		<< "other options will stop the programm" << endl;
-	cin >> choice;
-	const int arr_size = 100;
-	char str_arr[arr_size]{};
+    RemoveDuplicateWords(str_arr, arr_size);
 
-	switch (choice)
-	{
-	case(ByRand):
-		fill_c_string_rand(str_arr, arr_size);
-		print_string(str_arr, arr_size);
-		break;
-		;
-	case(ByUser):
-		fill_c_string_manual(str_arr, arr_size);
-		print_string(str_arr, arr_size);
-		break;
-		;
-	}
+    cout << "Text after removing duplicate words:" << endl << str_arr << endl;
+
+    return 0;
 }

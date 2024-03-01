@@ -4,7 +4,6 @@
 #include <iostream>
 #include <iomanip>
 #include <time.h>
-#include <windows.h>
 
 using namespace std;
 
@@ -69,7 +68,6 @@ void fill_list(Node*& top, int quantity)
 			top = nv;
 		}
 	}
-	Sleep(10);
 }
 
 void del_element(Node*& top, char key)
@@ -99,7 +97,6 @@ void print_list(Node* top)
 	}
 	cout << endl;
 }
-
 
 void myfunction(Node*& top, Node* top1)
 {
