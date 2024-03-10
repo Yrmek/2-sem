@@ -15,16 +15,53 @@ struct Node
 
 void print_list(Node*);
 void fill_list(Node*&, int);
-void find_equal_element(Node*, char, Node*&);
-void del_element(Node*&, char);
-void myfunction(Node*&, Node*);
 
+void deleteSublist(Node*& top, Node* top1) 
+{
+	Node* current = top;
+	Node* prev = nullptr;
+
+	while (current != nullptr) 
+	{
+		if (current->symbol == top1->symbol) 
+		{
+			Node* tempMain = current;
+			Node* tempSub = top1;
+
+			while (tempMain != nullptr && tempSub != nullptr && tempMain->symbol == tempSub->symbol) 
+			{
+				tempMain = tempMain->next;
+				tempSub = tempSub->next;
+			}
+
+			if (tempSub == nullptr) 
+			{ 
+				if (prev == nullptr) 
+				{ 
+					top = tempMain;
+					current = top;
+				}
+				else 
+				{
+					prev->next = tempMain;
+					current = prev; 
+				}
+			}
+		}
+		prev = current;
+		if (current != nullptr) 
+		{
+			current = current->next;
+		}
+	}
+}
 int main()
 {
 	srand(time(NULL));
 	cout << "Enter quantity of elements in lists" << endl;
 	int quantity;
-	cin >> quantity;
+	int quantity1;
+	cin >> quantity >>quantity1;
 
 	Node* top_l = NULL;
 	Node* top_l1 = NULL;
@@ -33,24 +70,14 @@ int main()
 	cout << "List L:" << endl;
 	print_list(top_l);
 
-	fill_list(top_l1, quantity);
+	fill_list(top_l1, quantity1);
 	cout << "List L1:" << endl;
 	print_list(top_l1);
 
-	myfunction(top_l, top_l1);
+	deleteSublist(top_l, top_l1);
 	cout << "Transformed list L without symbols of L1:" << endl;
 	print_list(top_l);
 	return 0;
-}
-void find_equal_element(Node* top, char key, Node*& ppv)
-{
-	Node* pv = top;
-	ppv = top;
-	while (pv && pv->symbol != key)
-	{
-		ppv = pv;
-		pv = pv->next;
-	}
 }
 
 void fill_list(Node*& top, int quantity)
@@ -58,7 +85,7 @@ void fill_list(Node*& top, int quantity)
 	for (int i = 0; i < quantity; i++) {
 		Node* ppv = NULL;
 		Node* nv = new Node;
-		nv->symbol = rand() % 25 + 65;
+		cin >> nv->symbol; //rand() % 25 + 65;
 		nv->next = NULL;
 		if (!top)
 			top = nv;
@@ -70,25 +97,6 @@ void fill_list(Node*& top, int quantity)
 	}
 }
 
-void del_element(Node*& top, char key)
-{
-	Node* pv, * ppv;
-	do
-	{
-		find_equal_element(top, key, ppv);
-		pv = ppv->next;
-		if (pv)
-		{
-			if (top->symbol == key)
-				top = top->next;
-			else
-				ppv->next = pv->next;
-
-			delete pv;
-		}
-	} while (ppv->next);
-}
-
 void print_list(Node* top)
 {
 	while (top) {
@@ -96,16 +104,5 @@ void print_list(Node* top)
 		top = top->next;
 	}
 	cout << endl;
-}
-
-void myfunction(Node*& top, Node* top1)
-{
-	char key;
-	while (top1)
-	{
-		key = top1->symbol;
-		del_element(top, key);
-		top1 = top1->next;
-	}
 }
 

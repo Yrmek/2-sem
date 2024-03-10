@@ -63,6 +63,7 @@ double find_min_sum(Node* top, Node* end)
 
 int main()
 {
+
 	int n = 0;
 	cout << "Enter value of n :" << endl;
 	cin >> n;
